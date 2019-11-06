@@ -1,0 +1,13 @@
+default:
+	cc hello.cc -o hello -lsqlite3
+
+db:
+	-rm -r mydata.db
+	sqlite3 -line XX_mydata.db "create table memos(text,priority INTEGER);insert into memos values('deliver project description',10);insert into memos values('lunch with CHristine',100); select * from memos;"
+
+run:db default
+	./hello XX_mydata.db "select * from memos"
+
+clean:
+	-rm -r hello
+	-rm -r XX_mydata.db
